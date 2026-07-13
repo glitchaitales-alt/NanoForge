@@ -2,13 +2,14 @@
 NanoForge Dataset Package
 """
 
+from .context import GenerationContext
+from .entities import EntityFactory
+from .generator import DatasetGenerator
 from .message import Message, Role
 from .metadata import Metadata
+from .registry import TaskRegistry
 from .sample import Sample
 from .task import Task
-from .entities import EntityFactory
-from .registry import TaskRegistry
-from .generator import DatasetGenerator
 
 __all__ = [
     "Message",
@@ -18,6 +19,6 @@ __all__ = [
     "Task",
     "TaskRegistry",
     "DatasetGenerator",
+    "EntityFactory",
+    "GenerationContext",
 ]
-
-__all__.append("EntityFactory")

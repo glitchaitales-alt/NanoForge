@@ -8,6 +8,7 @@ from nanoforge.datasets import (
     Sample,
     Task,
     TaskRegistry,
+    GenerationContext,
 )
 
 
@@ -15,17 +16,20 @@ class DummyTask(Task):
 
     name = "dummy"
 
-    def generate(self):
+    def generate(
+        self,
+        context: GenerationContext,
+    ) -> Sample:
 
         return Sample(
             messages=[
                 Message(
-                    Role.USER,
-                    "Hello"
+                    role=Role.USER,
+                    content="Hello",
                 )
             ],
             metadata=Metadata(
-                task="dummy"
+                task="dummy",
             ),
         )
 
