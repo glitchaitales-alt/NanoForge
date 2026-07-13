@@ -7,4 +7,9 @@ src/nanoforge.egg-info/PKG-INFO
 src/nanoforge.egg-info/SOURCES.txt
 src/nanoforge.egg-info/dependency_links.txt
 src/nanoforge.egg-info/top_level.txt
+src/nanoforge/datasets/__init__.py
+src/nanoforge/datasets/message.py
+src/nanoforge/datasets/metadata.py
+src/nanoforge/datasets/sample.py
+src/nanoforge/datasets/task.py
 tests/test_smoke.py
