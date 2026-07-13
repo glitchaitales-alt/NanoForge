@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+src/nanoforge/__init__.py
+src/nanoforge/__main__.py
+src/nanoforge.egg-info/PKG-INFO
+src/nanoforge.egg-info/SOURCES.txt
+src/nanoforge.egg-info/dependency_links.txt
+src/nanoforge.egg-info/top_level.txt
+tests/test_smoke.py

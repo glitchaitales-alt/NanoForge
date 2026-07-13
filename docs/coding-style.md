@@ -1,0 +1,3 @@
+- Type hints for public APIs
+- Tests for all core modules
+- Keep files under ~500 lines where practical
