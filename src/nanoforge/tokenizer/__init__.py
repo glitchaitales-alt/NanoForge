@@ -10,6 +10,7 @@ from .exceptions import (
 from .token import Token
 from .tokenizer import Tokenizer
 from .vocabulary import Vocabulary
+from .normalizer import TextNormalizer
 
 __all__ = [
     "Token",
@@ -18,4 +19,5 @@ __all__ = [
     "TokenizerError",
     "VocabularyError",
     "UnknownTokenError",
+    "TextNormalizer",
 ]
