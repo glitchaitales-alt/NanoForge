@@ -9,7 +9,7 @@ from .message import Message, Role
 from .metadata import Metadata
 from .registry import TaskRegistry
 from .sample import Sample
-from .tasks import Task
+from .tasks import Task, CopyTask
 
 __all__ = [
     "Message",
@@ -21,4 +21,5 @@ __all__ = [
     "DatasetGenerator",
     "EntityFactory",
     "GenerationContext",
+    "CopyTask",
 ]
