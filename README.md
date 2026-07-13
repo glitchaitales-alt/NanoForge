@@ -219,6 +219,8 @@ ROADMAP.md
 
 ---
 
-# License
+## 📄 License
 
-Released under the MIT License.
+NanoForge is released under the MIT License.
+
+See the `LICENSE` file for details.
