@@ -11,13 +11,17 @@ from .token import Token
 from .tokenizer import Tokenizer
 from .vocabulary import Vocabulary
 from .normalizer import TextNormalizer
+from .algorithms import ByteTokenizer
+from .builder import VocabularyBuilder
 
 __all__ = [
     "Token",
     "Tokenizer",
     "Vocabulary",
+    "VocabularyBuilder",
     "TokenizerError",
     "VocabularyError",
     "UnknownTokenError",
     "TextNormalizer",
+    "ByteTokenizer",
 ]
