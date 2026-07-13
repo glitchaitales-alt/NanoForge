@@ -224,3 +224,9 @@ ROADMAP.md
 NanoForge is released under the MIT License.
 
 See the `LICENSE` file for details.
+
+## Continuous Integration
+
+Every push and pull request automatically runs the NanoForge test suite using GitHub Actions.
+
+This ensures that the `develop` and `main` branches always remain stable.
