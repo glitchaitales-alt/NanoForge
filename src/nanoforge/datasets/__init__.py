@@ -10,6 +10,8 @@ from .metadata import Metadata
 from .registry import TaskRegistry
 from .sample import Sample
 from .tasks import Task, CopyTask
+from .exporters import JsonlExporter
+
 
 __all__ = [
     "Message",
@@ -22,4 +24,5 @@ __all__ = [
     "EntityFactory",
     "GenerationContext",
     "CopyTask",
+    "JsonlExporter",
 ]
