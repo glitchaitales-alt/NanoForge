@@ -8,6 +8,7 @@ from .sample import Sample
 from .task import Task
 from .entities import EntityFactory
 from .registry import TaskRegistry
+from .generator import DatasetGenerator
 
 __all__ = [
     "Message",
@@ -16,6 +17,7 @@ __all__ = [
     "Sample",
     "Task",
     "TaskRegistry",
+    "DatasetGenerator",
 ]
 
 __all__.append("EntityFactory")
