@@ -9,7 +9,7 @@ from .message import Message, Role
 from .metadata import Metadata
 from .registry import TaskRegistry
 from .sample import Sample
-from .task import Task
+from .tasks import Task
 
 __all__ = [
     "Message",

@@ -1,19 +1,10 @@
 """
-Base dataset task.
+Compatibility import.
+
+TODO:
+Remove in v0.4.
 """
 
-from abc import ABC, abstractmethod
-from .context import GenerationContext
-from .sample import Sample
+from .tasks.base import Task
 
-
-class Task(ABC):
-
-    name = "task"
-
-    @abstractmethod
-    def generate(
-        self,
-        context: GenerationContext,
-    ) -> Sample:
-        raise NotImplementedError
+__all__ = ["Task"]

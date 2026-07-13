@@ -8,7 +8,7 @@ Stores and manages dataset tasks.
 
 from __future__ import annotations
 
-from .task import Task
+from .tasks import Task
 
 
 class TaskRegistry:
