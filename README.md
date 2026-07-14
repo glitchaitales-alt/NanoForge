@@ -230,3 +230,23 @@ See the `LICENSE` file for details.
 Every push and pull request automatically runs the NanoForge test suite using GitHub Actions.
 
 This ensures that the `develop` and `main` branches always remain stable.
+
+## Example
+
+Train a tokenizer from raw text:
+
+```bash
+python examples/train_tokenizer.py
+
+```
+
+## 📄 New Tests
+
+Let's also test the public API rather than only examples.
+
+Create:
+
+```text
+tests/
+    test_examples.py
+```
