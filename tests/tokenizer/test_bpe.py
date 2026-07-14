@@ -1,6 +1,6 @@
 from collections import Counter
-
 from nanoforge.tokenizer.algorithms.bpe import BPETrainer
+from nanoforge.tokenizer.merge_rule import MergeRule
 
 
 def test_empty_corpus():
@@ -116,16 +116,17 @@ def test_merge_single_pair():
     trainer = BPETrainer()
 
     corpus = [
-        ["l", "o", "w"],
+        [108, 111, 119],
     ]
 
     merged = trainer.merge_pair(
         corpus,
-        ("l", "o"),
+        (108, 111),
+        256,
     )
 
     assert merged == [
-        ["lo", "w"],
+        [256, 119],
     ]
 
 
@@ -135,16 +136,17 @@ def test_merge_multiple_occurrences():
     trainer = BPETrainer()
 
     corpus = [
-        ["a", "b", "a", "b"],
+        [1, 2, 1, 2],
     ]
 
     merged = trainer.merge_pair(
         corpus,
-        ("a", "b"),
+        (1, 2),
+        256,
     )
 
     assert merged == [
-        ["ab", "ab"],
+        [256, 256],
     ]
 
 
@@ -153,12 +155,13 @@ def test_no_merge():
     trainer = BPETrainer()
 
     corpus = [
-        ["l", "o", "w"],
+        [108, 111, 119],
     ]
 
     merged = trainer.merge_pair(
         corpus,
-        ("x", "y"),
+        (120, 121),
+        256,
     )
 
     assert merged == corpus
@@ -169,16 +172,17 @@ def test_partial_merge():
     trainer = BPETrainer()
 
     corpus = [
-        ["l", "o", "w", "e"],
+        [108, 111, 119, 101],
     ]
 
     merged = trainer.merge_pair(
         corpus,
-        ("o", "w"),
+        (111, 119),
+        256,
     )
 
     assert merged == [
-        ["l", "ow", "e"],
+        [108, 256, 101],
     ]
 
 def test_train_zero_merges():
@@ -199,8 +203,8 @@ def test_train_one_merge():
     trainer = BPETrainer()
 
     corpus = [
-        ["l", "o", "w"],
-        ["l", "o", "w", "e", "r"],
+        [108, 111, 119],
+        [108, 111, 119, 101, 114],
     ]
 
     trained = trainer.train(
@@ -208,8 +212,16 @@ def test_train_one_merge():
         num_merges=1,
     )
 
+    assert trainer.merges == [
+        MergeRule(
+            left=108,
+            right=111,
+            merged=256,
+        )
+    ]
+
     assert trained == [
-        ["lo", "w"],
-        ["lo", "w", "e", "r"],
+        [256, 119],
+        [256, 119, 101, 114],
     ]
 

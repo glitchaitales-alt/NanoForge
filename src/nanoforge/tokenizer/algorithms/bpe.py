@@ -1,13 +1,18 @@
 from collections import Counter
 from collections.abc import Iterable
-
+from ..merge_rule import MergeRule
 
 class BPETrainer:
 
-    def count_pairs(
+    def __init__(self) -> None:
+        self.merges: list[MergeRule] = []
+        self._next_token_id = 256
+
+
+    def count_pairs( 
         self,
-        corpus: Iterable[list[str]],
-    ) -> Counter[tuple[str, str]]:
+        corpus: Iterable[list[int]],
+    ) -> Counter[tuple[int, int]]:
 
         counts = Counter()
 
@@ -19,8 +24,8 @@ class BPETrainer:
 
     def most_frequent_pair(
         self,
-        counts: Counter[tuple[str, str]],
-    ) -> tuple[str, str] | None:
+        counts: Counter[tuple[int, int]],
+    ) -> tuple[int, int] | None:
         """
         Return the most frequent pair.
 
@@ -35,9 +40,10 @@ class BPETrainer:
 
     def merge_pair(
         self,
-        corpus: list[list[str]],
-        pair: tuple[str, str],
-    ) -> list[list[str]]:
+        corpus: list[list[int]],
+        pair: tuple[int, int],
+        new_token: int,
+    ) -> list[list[int]]:
         """
         Merge every occurrence of a pair in the corpus.
         """
@@ -59,7 +65,7 @@ class BPETrainer:
                     and word[i] == left
                     and word[i + 1] == right
                 ):
-                    merged_word.append(left + right)
+                    merged_word.append(new_token)
                     i += 2
 
                 else:
@@ -70,12 +76,14 @@ class BPETrainer:
 
         return merged_corpus
     
+    
     def train(
         self,
-        corpus: list[list[str]],
+        corpus: list[list[int]],
         num_merges: int,
-    ) -> list[list[str]]:
-
+    ) -> list[list[int]]:
+        self.merges.clear()
+        self._next_token_id = 256
         corpus = [word[:] for word in corpus]
 
         for _ in range(num_merges):
@@ -87,9 +95,24 @@ class BPETrainer:
             if pair is None:
                 break
 
+            merged = self._next_token_id
+
+            self._next_token_id += 1
+
+            left, right = pair
+
+            self.merges.append(
+                MergeRule(
+                    left=left,
+                    right=right,
+                    merged=merged,
+                )
+            )
+
             corpus = self.merge_pair(
                 corpus,
                 pair,
+                merged,
             )
 
         return corpus
