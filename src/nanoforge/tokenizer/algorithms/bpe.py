@@ -1,6 +1,10 @@
 from collections import Counter
 from collections.abc import Iterable
 from ..merge_rule import MergeRule
+from ..serialization import (
+    load_merges,
+    save_merges,
+)
 
 class BPETrainer:
 
@@ -8,6 +12,34 @@ class BPETrainer:
         self.merges: list[MergeRule] = []
         self._next_token_id = 256
 
+    def save(
+        self,
+        path: str,
+    ) -> None:
+        """
+        Save learned merges.
+        """
+
+        save_merges(
+            self.merges,
+            path,
+        )
+
+
+    @classmethod
+    def load(
+        cls,
+        path: str,
+    ) -> "BPETrainer":
+        """
+        Load a trainer from disk.
+        """
+
+        trainer = cls()
+
+        trainer.merges = load_merges(path)
+
+        return trainer
 
     def count_pairs( 
         self,

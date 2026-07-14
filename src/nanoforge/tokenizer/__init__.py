@@ -7,11 +7,18 @@ from .exceptions import (
     VocabularyError,
     UnknownTokenError,
 )
+
 from .algorithms import (
     BPETrainer,
     BPETokenizer,
     ByteTokenizer,
 )
+
+from .serialization import (
+    save_merges,
+    load_merges,
+)
+
 from .token import Token
 from .tokenizer import Tokenizer
 from .vocabulary import Vocabulary
@@ -35,4 +42,6 @@ __all__ = [
     "MergeRule",
     "BPETokenizer",
     "BPETrainer",
+    "save_merges",
+    "load_merges",
 ]

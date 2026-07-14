@@ -22,6 +22,10 @@ class BPETokenizer:
 
         self._merges = merges
         self._byte_tokenizer = ByteTokenizer()
+        self._decode_map = {
+        merge.merged: (merge.left, merge.right)
+        for merge in merges
+        }
 
     def encode(
         self,
@@ -58,5 +62,40 @@ class BPETokenizer:
                     i += 1
 
             tokens = merged_tokens
-
         return tokens
+    
+    def _expand_token(
+        self,
+        token: int,
+    ) -> list[int]:
+        """
+        Recursively expand a merged token into its original bytes.
+        """
+
+        if token < 256:
+            return [token]
+
+        left, right = self._decode_map[token]
+
+        return (
+            self._expand_token(left)
+            + self._expand_token(right)
+        )
+    
+    def decode(
+        self,
+        tokens: list[int],
+    ) -> str:
+        """
+        Decode token IDs back into text.
+        """
+
+        bytes_out = []
+
+        for token in tokens:
+            bytes_out.extend(
+                self._expand_token(token)
+            )
+
+        return bytes(bytes_out).decode("utf-8")
+        
