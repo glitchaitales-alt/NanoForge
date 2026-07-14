@@ -75,3 +75,22 @@ Initial release.
 - Editable installation
 - CLI entry point
 - Test framework
+
+## [0.3.0] - 2026-07-14
+
+### Added
+- Byte Pair Encoding (BPE) trainer
+- Byte-level tokenizer
+- BPE tokenizer inference
+- Tokenizer serialization
+- Bidirectional encoding/decoding
+- High-level text training API
+- Vocabulary management
+- Special token support
+- End-to-end tokenizer example
+
+### Changed
+- Migrated BPE training from character-level to byte-level tokens.
+
+### Tests
+- 94 automated tests passing.
