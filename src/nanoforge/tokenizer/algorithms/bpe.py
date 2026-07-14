@@ -1,5 +1,7 @@
 from collections import Counter
 from collections.abc import Iterable
+from .byte import ByteTokenizer
+from ..normalizer import TextNormalizer
 from ..merge_rule import MergeRule
 from ..serialization import (
     load_merges,
@@ -11,6 +13,8 @@ class BPETrainer:
     def __init__(self) -> None:
         self.merges: list[MergeRule] = []
         self._next_token_id = 256
+        self._normalizer = TextNormalizer()
+        self._byte_tokenizer = ByteTokenizer()
 
     def save(
         self,
@@ -148,3 +152,31 @@ class BPETrainer:
             )
 
         return corpus
+    
+    def train_from_text(
+        self,
+        texts: list[str],
+        num_merges: int,
+    ) -> list[list[int]]:
+        """
+        Train a BPE tokenizer directly from raw text.
+        """
+
+        corpus: list[list[int]] = []
+
+        for text in texts:
+
+            normalized = self._normalizer.normalize(
+                text
+            )
+
+            tokens = self._byte_tokenizer.encode(
+                normalized
+            )
+
+            corpus.append(tokens)
+
+        return self.train(
+            corpus,
+            num_merges,
+        )

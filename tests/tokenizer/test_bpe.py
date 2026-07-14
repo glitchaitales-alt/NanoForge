@@ -2,7 +2,6 @@ from collections import Counter
 from nanoforge.tokenizer.algorithms.bpe import BPETrainer
 from nanoforge.tokenizer.merge_rule import MergeRule
 
-
 def test_empty_corpus():
 
     trainer = BPETrainer()
@@ -225,3 +224,47 @@ def test_train_one_merge():
         [256, 119, 101, 114],
     ]
 
+def test_train_from_text():
+
+    trainer = BPETrainer()
+
+    corpus = trainer.train_from_text(
+        [
+            "low",
+            "lower",
+        ],
+        num_merges=2,
+    )
+
+    assert corpus == [
+        [257],
+        [257, 101, 114],
+    ]
+
+def test_train_from_text_normalizes():
+
+    trainer = BPETrainer()
+
+    corpus = trainer.train_from_text(
+        [
+            "   low   ",
+        ],
+        num_merges=1,
+    )
+
+    assert corpus == [
+        [256, 119],
+    ]
+
+def test_train_from_text_empty():
+
+    trainer = BPETrainer()
+
+    corpus = trainer.train_from_text(
+        [],
+        num_merges=5,
+    )
+
+    assert corpus == []
+
+    
