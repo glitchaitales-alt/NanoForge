@@ -13,7 +13,7 @@ from .vocabulary import Vocabulary
 from .normalizer import TextNormalizer
 from .algorithms import ByteTokenizer
 from .builder import VocabularyBuilder
-
+from .merge_rule import MergeRule
 __all__ = [
     "Token",
     "Tokenizer",
@@ -24,4 +24,5 @@ __all__ = [
     "UnknownTokenError",
     "TextNormalizer",
     "ByteTokenizer",
+    "MergeRule",
 ]
