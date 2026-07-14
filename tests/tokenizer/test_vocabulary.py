@@ -6,6 +6,7 @@ from nanoforge.tokenizer import (
 )
 
 
+
 def test_empty_vocabulary():
 
     vocab = Vocabulary()
@@ -66,3 +67,48 @@ def test_unknown_id():
 
     with pytest.raises(UnknownTokenError):
         vocab.id_to_token(99)
+
+def test_special_tokens_exist():
+
+    vocab = Vocabulary.with_special_tokens()
+
+    assert "<PAD>" in vocab
+    assert "<UNK>" in vocab
+    assert "<BOS>" in vocab
+    assert "<EOS>" in vocab
+
+def test_special_token_ids():
+
+    vocab = Vocabulary.with_special_tokens()
+
+    assert vocab.pad_id == 0
+    assert vocab.unk_id == 1
+    assert vocab.bos_id == 2
+    assert vocab.eos_id == 3
+
+def test_special_token_lookup():
+
+    vocab = Vocabulary.with_special_tokens()
+
+    assert vocab.token_to_id("<PAD>") == vocab.pad_id
+
+    assert vocab.id_to_token(
+        vocab.eos_id
+    ) == "<EOS>"
+
+def test_add_after_special_tokens():
+
+    vocab = Vocabulary.with_special_tokens()
+
+    token_id = vocab.add("hello")
+
+    assert token_id == 4
+
+def test_with_special_tokens():
+
+    vocab = Vocabulary.with_special_tokens()
+
+    assert vocab.pad_id == 0
+    assert vocab.unk_id == 1
+    assert vocab.bos_id == 2
+    assert vocab.eos_id == 3

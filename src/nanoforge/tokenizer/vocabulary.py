@@ -23,8 +23,23 @@ class Vocabulary:
     def __init__(self) -> None:
 
         self._token_to_id: dict[str, int] = {}
-
         self._id_to_token: dict[int, str] = {}
+
+    @classmethod
+    def with_special_tokens(cls) -> "Vocabulary":
+        """
+        Create a vocabulary pre-populated with the
+        standard special tokens used by NanoForge.
+        """
+
+        vocab = cls()
+
+        vocab.pad_id = vocab.add("<PAD>")
+        vocab.unk_id = vocab.add("<UNK>")
+        vocab.bos_id = vocab.add("<BOS>")
+        vocab.eos_id = vocab.add("<EOS>")
+
+        return vocab
 
     def add(
         self,
@@ -82,6 +97,22 @@ class Vocabulary:
             raise UnknownTokenError(
                 f"Unknown token id: {token_id}"
             ) from exc
+
+    @property
+    def pad_token(self) -> str:
+        return "<PAD>"
+
+    @property
+    def unk_token(self) -> str:
+        return "<UNK>"
+
+    @property
+    def bos_token(self) -> str:
+        return "<BOS>"
+
+    @property
+    def eos_token(self) -> str:
+        return "<EOS>"
 
     def __contains__(
         self,
